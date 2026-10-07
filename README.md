@@ -19,7 +19,7 @@ The setup assistant generates the frontend project and explains where to put eve
 
 Use the [setup assistant](docs-site/src/setup-assistant.njk) to generate a consumer project. The public package name is **`wp-awesome`**, without an organization scope.
 
-Current source version: `0.1.0` (unreleased).
+Current source version: `0.1.0`.
 
 [Setup assistant](docs-site/src/setup-assistant.njk) · [Local, staging, and production](docs-site/src/publishing-and-hosting.md) · [Frontend guide](docs-site/src/quick-guide.md) · [Install the WordPress plugin](docs-site/src/wp-awesome.md) · [Package installation](docs-site/src/install-and-configure.md) · [Repository](https://github.com/chdenat/wp-awesome) · [npm package](https://www.npmjs.com/package/wp-awesome) · [MIT license](LICENSE.md)
 

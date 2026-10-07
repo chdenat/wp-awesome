@@ -13,7 +13,7 @@
 
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.0 — 2026-10-07
 
 - Extract the standalone `wp-awesome` package and preserve its CommonJS API.
 - Provide WordPress REST fetching, sanitization, Gutenberg conversion, record contracts, configurable routes, and optional Eleventy, WooCommerce, Yoast, and form integrations.

@@ -1,0 +1,129 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Awesome 0.1.0\n"
+"PO-Revision-Date: 2026-10-07 00:00+0000\n"
+"Last-Translator: WP Awesome contributors\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Language-Team: French\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: wp-awesome\n"
+
+#: wordpress-plugin/wp-awesome.php
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WP Awesome"
+msgstr "WP Awesome"
+
+#: wordpress-plugin/wp-awesome.php
+msgid "Installs the WP Awesome build controls as a managed MU-plugin."
+msgstr "Installe les commandes de compilation WP Awesome en tant que MU-plugin géré."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WP Awesome Build Controls"
+msgstr "Commandes de compilation WP Awesome"
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Adds manual site and content build requests to WordPress."
+msgstr "Ajoute à WordPress des demandes de compilation manuelles du site et des contenus."
+
+#: wordpress-plugin/wp-awesome.php
+msgid "Build site"
+msgstr "Mise à jour du site"
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build the entire site"
+msgstr "Mettre à jour tout le site"
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build"
+msgstr "Mise à jour"
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build this item"
+msgstr "Mettre à jour cet élément"
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "You do not have permission to perform this action."
+msgstr "Vous n’avez pas l’autorisation d’effectuer cette action."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "You do not have permission to update this content."
+msgstr "Vous n’avez pas l’autorisation de mettre à jour ce contenu."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Only published public content can trigger a build."
+msgstr "Seuls les contenus publics publiés peuvent déclencher une compilation."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "GitHub accepted the build request. Check the workflow result."
+msgstr "GitHub a accepté la demande de mise à jour. Vérifiez le résultat du workflow."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Configure the GitHub repository, token, and build event in wp-config.php."
+msgstr "Configurez le dépôt GitHub, le jeton et l’événement de compilation dans wp-config.php."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "The configured build target is disabled."
+msgstr "La cible de compilation configurée est désactivée."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WordPress could not reach the GitHub API."
+msgstr "WordPress n’a pas pu joindre l’API GitHub."
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "GitHub did not accept the build request."
+msgstr "GitHub n’a pas accepté la demande de mise à jour."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The bundled WP Awesome MU-plugin file is missing or unreadable."
+msgstr "Le fichier MU-plugin WP Awesome fourni est absent ou illisible."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The bundled WP Awesome MU-plugin file could not be read."
+msgstr "Le fichier MU-plugin WP Awesome fourni n’a pas pu être lu."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin destination is a symbolic link and was left untouched."
+msgstr "La destination du MU-plugin WP Awesome est un lien symbolique ; elle n’a pas été modifiée."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The installed MU-plugin file could not be read."
+msgstr "Le fichier MU-plugin installé n’a pas pu être lu."
+
+#: wordpress-plugin/lifecycle.php
+msgid "Another file already uses the WP Awesome MU-plugin path and was left untouched."
+msgstr "Un autre fichier utilise déjà le chemin du MU-plugin WP Awesome ; il n’a pas été modifié."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin destination exists and is not a regular file."
+msgstr "La destination du MU-plugin WP Awesome existe et n’est pas un fichier standard."
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not create its MU-plugin directory."
+msgstr "WordPress n’a pas pu créer son dossier de MU-plugins."
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not create a temporary MU-plugin file."
+msgstr "WordPress n’a pas pu créer de fichier temporaire pour le MU-plugin."
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not write the MU-plugin file."
+msgstr "WordPress n’a pas pu écrire le fichier du MU-plugin."
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not install the MU-plugin file."
+msgstr "WordPress n’a pas pu installer le fichier du MU-plugin."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin path is not a regular file and was left untouched."
+msgstr "Le chemin du MU-plugin WP Awesome n’est pas un fichier standard ; il n’a pas été modifié."
+
+#: wordpress-plugin/lifecycle.php
+msgid "The MU-plugin file does not carry the WP Awesome ownership marker and was left untouched."
+msgstr "Le fichier MU-plugin ne contient pas la marque de propriété WP Awesome ; il n’a pas été modifié."
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not remove the WP Awesome MU-plugin file."
+msgstr "WordPress n’a pas pu supprimer le fichier MU-plugin WP Awesome."

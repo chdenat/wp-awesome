@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Awesome 0.1.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: wp-awesome\n"
+
+#: wordpress-plugin/wp-awesome.php
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WP Awesome"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome.php
+msgid "Installs the WP Awesome build controls as a managed MU-plugin."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WP Awesome Build Controls"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Adds manual site and content build requests to WordPress."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome.php
+msgid "Build site"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build the entire site"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Build this item"
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "You do not have permission to update this content."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Only published public content can trigger a build."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "GitHub accepted the build request. Check the workflow result."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "Configure the GitHub repository, token, and build event in wp-config.php."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "The configured build target is disabled."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "WordPress could not reach the GitHub API."
+msgstr ""
+
+#: wordpress-plugin/wp-awesome-mu.php
+msgid "GitHub did not accept the build request."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The bundled WP Awesome MU-plugin file is missing or unreadable."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The bundled WP Awesome MU-plugin file could not be read."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin destination is a symbolic link and was left untouched."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The installed MU-plugin file could not be read."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "Another file already uses the WP Awesome MU-plugin path and was left untouched."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin destination exists and is not a regular file."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not create its MU-plugin directory."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not create a temporary MU-plugin file."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not write the MU-plugin file."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not install the MU-plugin file."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The WP Awesome MU-plugin path is not a regular file and was left untouched."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "The MU-plugin file does not carry the WP Awesome ownership marker and was left untouched."
+msgstr ""
+
+#: wordpress-plugin/lifecycle.php
+msgid "WordPress could not remove the WP Awesome MU-plugin file."
+msgstr ""

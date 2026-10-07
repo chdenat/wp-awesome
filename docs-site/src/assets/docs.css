@@ -61,10 +61,10 @@ a:hover { color: var(--wa-color-brand-on-quiet); }
 .brand-resource.brand-build-awesome:hover { color: var(--brand-build-awesome-green); }
 .brand-resource.brand-web-awesome:hover { color: var(--brand-web-awesome-orange); }
 .brand-resource.brand-font-awesome:hover { color: var(--brand-font-awesome-blue); }
-.brand-name { display: inline-flex; align-items: baseline; gap: var(--wa-space-2xs); color: var(--wa-color-text-normal); font-size: var(--wa-font-size-m); font-weight: 750; letter-spacing: -0.02em; line-height: 1.2; text-decoration: none; white-space: nowrap; }
+.brand-name { display: inline-flex; flex: 0 0 auto; flex-wrap: nowrap; align-items: baseline; gap: var(--wa-space-2xs); color: var(--wa-color-text-normal); font-size: var(--wa-font-size-m); font-weight: 750; letter-spacing: -0.02em; line-height: 1.2; text-decoration: none; white-space: nowrap; }
 .brand-version { color: var(--wa-color-text-quiet); font-size: var(--wa-font-size-xs); font-weight: 500; letter-spacing: 0; }
 .brand-name:hover { color: var(--wa-color-text-normal); }
-.header-actions { flex-wrap: nowrap; gap: var(--wa-space-2xs); margin-inline-start: auto; }
+.header-actions { flex-wrap: nowrap; gap: 0; margin-inline-start: auto; }
 .header-actions wa-button { display: block; inline-size: var(--wa-space-2xl); block-size: var(--wa-space-2xl); flex: 0 0 var(--wa-space-2xl); }
 .header-actions wa-button::part(button) { inline-size: 100%; min-inline-size: 0; min-block-size: 100%; block-size: 100%; padding-inline: 0; }
 .header-actions wa-button wa-icon { font-size: var(--wa-font-size-s); }
@@ -232,7 +232,6 @@ h1, h2, h3, h4 { color: var(--wa-color-text-normal); line-height: 1.2; letter-sp
 @media (max-width: 48rem) {
   .header-inner { padding-inline: var(--wa-space-m); gap: var(--wa-space-xs); }
   .breadcrumb-nav { padding-inline: var(--wa-space-m); }
-  .header-actions { gap: var(--wa-space-2xs); }
   .header-actions wa-button::part(button) { padding-inline: 0; }
   .article { padding-block: var(--wa-space-2xl); }
   .article-content table { display: block; overflow-x: auto; white-space: nowrap; }
@@ -251,7 +250,7 @@ h1, h2, h3, h4 { color: var(--wa-color-text-normal); line-height: 1.2; letter-sp
   .brand-resource, .brand-home { inline-size: var(--wa-space-l); block-size: var(--wa-space-l); }
   .brand-resource wa-icon, .brand-home wa-icon { font-size: var(--wa-font-size-s); }
   .brand-resources { gap: 0; }
-  .header-actions { gap: var(--wa-space-2xs); margin-inline-start: 0; }
+  .header-actions { margin-inline-start: 0; }
   .header-actions wa-button { inline-size: var(--wa-space-l); block-size: var(--wa-space-l); flex-basis: var(--wa-space-l); }
   .header-actions wa-button::part(button) { font-size: var(--wa-font-size-xs); }
   .article-header h1 { font-size: var(--wa-font-size-3xl); }

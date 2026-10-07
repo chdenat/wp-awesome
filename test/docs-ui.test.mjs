@@ -110,7 +110,7 @@ test('brand puts the project home above the ordered WordPress and Awesome tools'
   const positions = expectedOrder.map((marker) => brand.indexOf(marker))
   assert.ok(positions.every((position) => position >= 0))
   assert.deepEqual(positions, [...positions].sort((left, right) => left - right))
-  assert.ok(brand.includes('aria-label="WP Awesome v{{ site.version }} home">WP Awesome <span class="brand-version">v{{ site.version }}</span>'))
+  assert.ok(brand.includes('aria-label="WP Awesome v{{ site.version }} home"><span class="brand-title">WP Awesome</span><span class="brand-version">v{{ site.version }}</span>'))
   assert.doesNotMatch(brand, /brand-(?:chevron|plus)/)
   assert.match(styles, /--brand-build-awesome-green: #00a776/)
   assert.match(styles, /--brand-web-awesome-orange: #f36944/)
@@ -120,7 +120,7 @@ test('brand puts the project home above the ordered WordPress and Awesome tools'
   }
   assert.match(styles, /\.header-actions wa-button \{[^}]*inline-size: var\(--wa-space-2xl\);[^}]*flex: 0 0 var\(--wa-space-2xl\);/)
   assert.match(styles, /\.header-actions wa-button::part\(button\) \{[^}]*padding-inline: 0;/)
-  assert.match(styles, /\.header-actions \{ flex-wrap: nowrap; gap: var\(--wa-space-2xs\); margin-inline-start: auto; \}/)
+  assert.match(styles, /\.header-actions \{ flex-wrap: nowrap; gap: 0; margin-inline-start: auto; \}/)
   assert.match(styles, /\.brand-resources \{[^}]*flex-wrap: nowrap;/)
 })
 

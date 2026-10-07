@@ -13,7 +13,7 @@
 
 # Changelog
 
-## 0.3.0 — unreleased
+## 0.3.0 — 2026-10-07
 
 - Add an injectable Yoast sitemap text transport with bounded retries, exponential backoff, jitter, timeout handling, and `Retry-After` support.
 

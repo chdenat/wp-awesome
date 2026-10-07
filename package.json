@@ -4,7 +4,7 @@
   "description": "Build Eleventy frontends for WordPress with Web Awesome components and Font Awesome icons.",
   "author": "Christian Denat",
   "license": "MIT",
-  "homepage": "https://github.com/chdenat/wp-awesome#readme",
+  "homepage": "https://chdenat.github.io/wp-awesome/",
   "repository": {
     "type": "git",
     "url": "https://github.com/chdenat/wp-awesome.git"

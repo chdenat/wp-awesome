@@ -83,7 +83,7 @@ jobs:
         if: steps.registry.outputs.published != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish artifacts/wp-awesome-*.tgz --access public --ignore-scripts
+        run: npm publish ./artifacts/wp-awesome-*.tgz --access public --ignore-scripts
       - name: Create or update the GitHub release assets
         env:
           GH_TOKEN: ${{ github.token }}

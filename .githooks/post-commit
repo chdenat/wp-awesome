@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# ******************************************************************************
+# This file is part of the wp-awesome package.
+#
+# File: .githooks/post-commit
+#
+# Author: Christian Denat
+#
+# Created on: 2026-10-07
+# Last modified: 2026-10-07
+#
+# Copyright © 2026 Christian Denat
+# ******************************************************************************
+
+set -eu
+bun scripts/vendor-agent-links.mjs restore

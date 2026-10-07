@@ -1,0 +1,23 @@
+# ******************************************************************************
+# This file is part of the wp-awesome package.
+#
+# File: .gitignore
+#
+# Author: Christian Denat
+#
+# Created on: 2026-10-07
+# Last modified: 2026-10-07
+#
+# Copyright © 2026 Christian Denat
+# ******************************************************************************
+
+node_modules/
+docs-site/.vite/
+docs-site/_site/
+docs-site/.serve.pid
+artifacts/
+coverage/
+.env
+.DS_Store
+*.tgz
+.idea/

@@ -1,0 +1,54 @@
+# ******************************************************************************
+# This file is part of the wp-awesome package.
+#
+# File: .github/workflows/ci.yml
+#
+# Author: Christian Denat
+#
+# Created on: 2026-10-07
+# Last modified: 2026-10-07
+#
+# Copyright © 2026 Christian Denat
+# ******************************************************************************
+
+name: Verify WP Awesome
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - node: '22.12.0'
+            php: '7.2'
+          - node: '24'
+            php: '8.2'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: bun install --frozen-lockfile
+      - run: bun run verify
+      - run: bun run pack:check
+      - name: Verify GitHub Pages paths
+        env:
+          WP_AWESOME_DOCS_PATH_PREFIX: /wp-awesome/
+        run: bun run docs:check

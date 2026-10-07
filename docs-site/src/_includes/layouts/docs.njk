@@ -19,10 +19,10 @@
     <meta name="description" content="{{ description }}">
     <meta name="color-scheme" content="light dark">
     <title>{{ title }} · {{ site.name }}</title>
-    <script src="{{ '/assets/theme-init.js' | url }}"></script>
-    <link rel="icon" type="image/svg+xml" href="{{ '/assets/fontawesome/svgs/brands/font-awesome.svg' | url }}">
-    <link rel="stylesheet" href="{{ '/assets/docs.css' | url }}">
-    <script type="module" src="{{ '/assets/docs.js' | url }}"></script>
+    <script src="/assets/theme-init.js"></script>
+    <link rel="icon" type="image/svg+xml" href="/assets/fontawesome/svgs/brands/font-awesome.svg">
+    <link rel="stylesheet" href="/assets/docs.css">
+    <script type="module" src="/assets/docs.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -32,10 +32,10 @@
           <div class="header-branding wa-cluster wa-gap-s">
             <div class="brand">
               <div class="brand-project wa-cluster wa-gap-xs">
-                <a class="brand-home" href="{{ '/' | url }}" aria-label="{{ site.name }} documentation home">
+                <a class="brand-home" href="/" aria-label="{{ site.name }} documentation home">
                   <wa-icon name="house" aria-hidden="true"></wa-icon>
                 </a>
-                <a class="brand-name" href="{{ '/' | url }}" aria-label="{{ site.name }} home">WP Awesome</a>
+                <a class="brand-name" href="/" aria-label="{{ site.name }} home">WP Awesome</a>
               </div>
               <nav class="brand-resources wa-cluster" aria-label="WordPress frontend tools: Build Awesome, Web Awesome, and Font Awesome">
                 <a class="brand-resource brand-wordpress" href="https://wordpress.org/" target="_blank" rel="noopener noreferrer" aria-label="WordPress website">
@@ -86,7 +86,7 @@
             <ul>
               {% for item in group.items %}
                 <li>
-                  <a href="{{ item.href | url }}" data-drawer="close"{% if page.url == item.href %} aria-current="page"{% endif %}>{{ item.title }}</a>
+                  <a href="{{ item.href }}" data-drawer="close"{% if page.url == item.href %} aria-current="page"{% endif %}>{{ item.title }}</a>
                 </li>
               {% endfor %}
             </ul>

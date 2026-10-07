@@ -53,7 +53,7 @@ templateEngineOverride: njk,md
     <strong>To request builds from WordPress, install and activate the WP Awesome WordPress plugin.</strong>
     It adds the global build button, per-content actions, and automatic rebuild requests. Activation installs its companion MU-plugin. This plugin is separate from the frontend package.
     Its WordPress interface is available in English by default and French, following the current WordPress admin language.
-    <a href="{{ '/wp-awesome/' | url }}">Install and configure the WordPress plugin</a>.
+    <a href="/wp-awesome/">Install and configure the WordPress plugin</a>.
   </wa-callout>
 
 </section>

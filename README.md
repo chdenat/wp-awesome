@@ -23,7 +23,7 @@ Current source version: `0.1.0`.
 
 [Setup assistant](docs-site/src/setup-assistant.njk) · [Local, staging, and production](docs-site/src/publishing-and-hosting.md) · [Frontend guide](docs-site/src/quick-guide.md) · [Install the WordPress plugin](docs-site/src/wp-awesome.md) · [Package installation](docs-site/src/install-and-configure.md) · [Repository](https://github.com/chdenat/wp-awesome) · [npm package](https://www.npmjs.com/package/wp-awesome) · [MIT license](LICENSE.md)
 
-The GitHub repository and Pages site are expected at `chdenat/wp-awesome`. The package is currently unreleased; preparing local files does not create the remote, publish to npm, or deploy documentation.
+The GitHub repository and Pages site are expected at `chdenat/wp-awesome`. Version `0.1.0` is published as `wp-awesome@0.1.0` on npm. Preparing local files does not publish a later package version or deploy documentation.
 
 ## Optional integrations
 
@@ -39,7 +39,7 @@ Read [AGENTS.md](AGENTS.md), the [shared rules](.lgs1920/guidance/PROJECT_RULES.
 
 Use npm or Bun to install the package. The [package guide](docs-site/src/install-and-configure.md) and [API reference](docs-site/src/api-reference.md) cover its WordPress content helpers.
 
-After the first npm release:
+Install the published version:
 
 ```sh
 npm install wp-awesome@0.1.0
@@ -57,7 +57,7 @@ bun add github:chdenat/wp-awesome#v0.1.0
 
 Use a version tag or commit rather than `main` for a reproducible consumer. GitHub dependencies keep the same `require('wp-awesome')` import. The CommonJS runtime and declarations are source files, so installation does not need a build lifecycle script.
 
-Today, use a local checkout or an archive produced from it:
+For unpublished changes, use a local checkout or an archive produced from it:
 
 ```sh
 npm install /absolute/path/to/wp-awesome
@@ -147,7 +147,7 @@ The event contains `client_payload.scope: site` for a full build or `client_payl
 
 Deactivating or deleting WP Awesome through **Plugins → Installed Plugins** removes its owned MU-plugin file and leaves unrelated MU-plugins in place. Use WordPress's **Delete** action rather than deleting the plugin directory directly so the uninstall handler can run.
 
-The GitHub workflows follow the existing Timeline pattern: frozen Bun installation and verification, version-tag validation, npm authentication through `NPM_TOKEN`, skip already published versions, and an annotated-tag GitHub release. WP Awesome also attaches the JavaScript tarball and WordPress plugin ZIP. Configure the `npm` environment and GitHub Pages before using these workflows; see [package installation and releases](docs-site/src/package-releases.md).
+The GitHub workflows follow the existing Timeline pattern: frozen Bun installation and verification, version-tag validation, npm authentication through `NPM_TOKEN`, skip already published versions, and an annotated-tag GitHub release. The release workflow attaches the JavaScript tarball and WordPress plugin ZIP before publishing the GitHub release. The Pages workflow deploys the documentation site separately. Configure the `npm` environment and GitHub Pages before using these workflows; see [package installation and releases](docs-site/src/package-releases.md).
 
 ## License
 

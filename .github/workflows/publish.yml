@@ -90,7 +90,24 @@ jobs:
           RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           git for-each-ref --format='%(contents)' "refs/tags/$RELEASE_TAG" > "$RUNNER_TEMP/release-notes.md"
-          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            release_draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft')
+            if [ "$release_draft" = 'true' ]; then
+              gh release upload "$RELEASE_TAG" artifacts/wp-awesome-*.tgz artifacts/wp-awesome-*.zip --clobber
+              gh release edit "$RELEASE_TAG" --draft=false
+            else
+              release_assets=$(gh release view "$RELEASE_TAG" --json assets --jq '[.assets[].name] | join("\n")')
+              assets_complete=true
+              for asset in artifacts/wp-awesome-*.tgz artifacts/wp-awesome-*.zip; do
+                if ! printf '%s\n' "$release_assets" | grep -Fxq "${asset##*/}"; then
+                  assets_complete=false
+                fi
+              done
+              if [ "$assets_complete" != 'true' ]; then
+                echo "The published release $RELEASE_TAG is missing assets and cannot be changed. Publish a new version to provide them." >&2
+                exit 1
+              fi
+            fi
+          else
+            gh release create "$RELEASE_TAG" artifacts/wp-awesome-*.tgz artifacts/wp-awesome-*.zip --verify-tag --title "$RELEASE_TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
           fi
-          gh release upload "$RELEASE_TAG" artifacts/wp-awesome-*.tgz artifacts/wp-awesome-*.zip --clobber

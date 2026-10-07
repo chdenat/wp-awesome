@@ -15,7 +15,7 @@
 /**
  * Plugin Name: WP Awesome
  * Description: Installs the WP Awesome build controls as a managed MU-plugin.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Requires at least: 5.6
  * Requires PHP: 7.2
  * Text Domain: wp-awesome

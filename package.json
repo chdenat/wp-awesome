@@ -1,6 +1,6 @@
 {
   "name": "wp-awesome",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Build Eleventy frontends for WordPress with Web Awesome components and Font Awesome icons.",
   "author": "Christian Denat",
   "license": "MIT",

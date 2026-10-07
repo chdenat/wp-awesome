@@ -13,6 +13,10 @@
 
 # Changelog
 
+## 0.1.1 — 2026-10-07
+
+- See the annotated release tag and commit history.
+
 ## 0.1.0 — 2026-10-07
 
 - Extract the standalone `wp-awesome` package and preserve its CommonJS API.

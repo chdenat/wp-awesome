@@ -82,7 +82,7 @@ if (args.includes('--preview')) {
   const changelog = readFileSync(changelogPath, 'utf8')
   const entry = `## ${version} — ${new Date().toISOString().slice(0, 10)}`
   writeFileSync(changelogPath, changelog.includes(`## ${version} — unreleased`) ? changelog.replace(`## ${version} — unreleased`, entry) : changelog.replace('# Changelog', `# Changelog\n\n${entry}\n\n- See the annotated release tag and commit history.`))
-  run('bun', ['install', '--lockfile-only'], true)
+  // A version-only release does not change dependency resolution; avoid rewriting registry URLs from local npm configuration.
   run('bun', ['run', 'plugin:build'], true)
   run('git', ['add', '--', 'package.json', 'bun.lock', 'README.md', 'CHANGELOG.md', 'wordpress-plugin/wp-awesome.php'])
   run('git', ['commit', '-m', `Release v${version}`], true)

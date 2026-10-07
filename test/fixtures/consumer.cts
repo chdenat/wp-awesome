@@ -28,6 +28,8 @@ const page: wpAwesome.WordPressContentRecord = records.normalizeWordPressRecord(
 content.convertWordPressContent({ renderedHtml: page.content.html, mode: 'rendered' })
 const client = rest.createWordPressRestClient({ baseUrl: 'https://beautiful.wp.site/wp-json/' })
 commerce.createWooCommerceStoreApi({ restClient: client })
+const fetchSitemapText = yoast.createRetryingFetchText({ retries: 2 })
+fetchSitemapText(new URL('https://beautiful.wp.site/page-sitemap.xml'), { name: 'page' })
 yoast.parseSitemapLocations('<urlset/>')
 forms.collectFormReferences([page])
 styles.isSafeCssColorValue('#123456')

@@ -146,6 +146,7 @@ The returned plugin requires `eleventyConfig.addGlobalData()`. `loadData` can re
 | --- | --- | --- |
 | `wp-awesome/integrations/woocommerce` | `createWooCommerceStoreApi(options)` | `listProducts()` and `listCategories()` Store API collection methods |
 | `wp-awesome/integrations/yoast` | `createYoastSitemapIntegration(options)` | An adapter with `load()` returning locations by configured sitemap name |
+| `wp-awesome/integrations/yoast` | `createRetryingFetchText(options)` | An injectable sitemap text transport with bounded retries, backoff, timeouts, and `Retry-After` support |
 | `wp-awesome/integrations/yoast` | `parseSitemapLocations(xml)` | Decoded `<loc>` values from a `urlset` or `sitemapindex` |
 | `wp-awesome/integrations/forms` | `collectFormReferences(records, options)` | Deduplicated provider and form IDs with source record references |
 

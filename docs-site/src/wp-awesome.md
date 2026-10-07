@@ -76,7 +76,7 @@ Manual requests and automatic public-content changes converge on the same GitHub
 
 The WordPress package contains four PHP files: `wp-awesome.php` (the regular plugin entry point), `wp-awesome-mu.php` (the feature implementation), `lifecycle.php` (safe MU-plugin file operations), and `uninstall.php` (the guarded WordPress uninstall entry point). Its `languages/` directory contains the translation template, French catalog, and compiled French catalog. The package requires WordPress 5.6 or later and PHP 7.2 or later. WordPress 5.6 introduced the `wp_after_insert_post` hook used for complete post-save capture.
 
-Download version 0.1.1 from the [WP Awesome plugin release](https://github.com/chdenat/wp-awesome/releases/tag/v0.1.1). Later version releases include the installable ZIP as a release asset.
+Download version 0.3.0 from the [WP Awesome plugin release](https://github.com/chdenat/wp-awesome/releases/tag/v0.3.0). Later version releases include the installable ZIP as a release asset.
 
 Build the ZIP from the package checkout:
 

@@ -31,6 +31,7 @@ const {
   sanitizeWordPressHtml,
   toOutputPath,
 } = require('../index.js')
+const { createRetryingFetchText, createYoastSitemapIntegration } = require('../integrations/yoast.js')
 
 function jsonResponse(body, { status = 200, headers = {} } = {}) {
   return new Response(JSON.stringify(body), {
@@ -105,6 +106,124 @@ test('REST client retries transient server failures and stops after recovery', a
 
   assert.deepEqual(await client.getJson('wp/v2/pages/1'), { id: 1 })
   assert.equal(requests, 2)
+})
+
+test('Yoast sitemap transport retries a 503 with bounded backoff before returning its text', async () => {
+  const delays = []
+  const retries = []
+  let requests = 0
+  const fetchText = createRetryingFetchText({
+    retries: 2,
+    retryDelayMs: 5000,
+    maxRetryDelayMs: 30000,
+    maxRetryAfterMs: 120000,
+    jitterRatio: 0,
+    fetchImpl: async (url, options) => {
+      requests += 1
+      assert.equal(new URL(url).pathname, '/category-sitemap.xml')
+      assert.equal(options.headers.Accept, 'application/xml,text/xml')
+      assert.ok(options.signal instanceof AbortSignal)
+      return requests === 1
+        ? new Response('temporary failure', { status: 503 })
+        : new Response('<urlset><url><loc>https://beautiful.wp.site/category/</loc></url></urlset>')
+    },
+    waitImpl: async (milliseconds) => delays.push(milliseconds),
+    onRetry: (details) => retries.push(details),
+  })
+
+  const xml = await fetchText(new URL('https://beautiful.wp.site/category-sitemap.xml'), { name: 'category' })
+
+  assert.match(xml, /beautiful\.wp\.site\/category\//)
+  assert.equal(requests, 2)
+  assert.deepEqual(delays, [5000])
+  assert.deepEqual(retries.map(({ status, attempt, nextAttempt, delayMs }) => ({ status, attempt, nextAttempt, delayMs })), [
+    { status: 503, attempt: 1, nextAttempt: 2, delayMs: 5000 },
+  ])
+})
+
+test('Yoast sitemap transport honors Retry-After dates', async () => {
+  const now = Date.parse('Wed, 07 Oct 2026 00:00:00 GMT')
+  const delays = []
+  let requests = 0
+  const fetchText = createRetryingFetchText({
+    retries: 2,
+    retryDelayMs: 5000,
+    maxRetryDelayMs: 30000,
+    maxRetryAfterMs: 120000,
+    jitterRatio: 0,
+    fetchImpl: async () => requests++ === 0
+      ? new Response('temporary failure', {
+        status: 503,
+        headers: { 'retry-after': new Date(now + 45000).toUTCString() },
+      })
+      : new Response('<urlset/>'),
+    waitImpl: async (milliseconds) => delays.push(milliseconds),
+    nowImpl: () => now,
+  })
+
+  await fetchText(new URL('https://beautiful.wp.site/page-sitemap.xml'), { name: 'page' })
+  assert.deepEqual(delays, [45000])
+})
+
+test('Yoast sitemap transport caps Retry-After waits and fails permanent client errors immediately', async () => {
+  const delays = []
+  let requests = 0
+  const fetchText = createRetryingFetchText({
+    retries: 2,
+    retryDelayMs: 5000,
+    maxRetryDelayMs: 30000,
+    maxRetryAfterMs: 120000,
+    jitterRatio: 0,
+    fetchImpl: async () => requests++ === 0
+      ? new Response('temporary failure', { status: 503, headers: { 'retry-after': '180' } })
+      : new Response('missing', { status: 404 }),
+    waitImpl: async (milliseconds) => delays.push(milliseconds),
+  })
+
+  await assert.rejects(
+    fetchText(new URL('https://beautiful.wp.site/post-sitemap.xml'), { name: 'post' }),
+    /WordPress Yoast post sitemap failed: 404/,
+  )
+  assert.equal(requests, 2)
+  assert.deepEqual(delays, [120000])
+})
+
+test('Yoast sitemap transport exhausts only the configured number of transient retries', async () => {
+  const delays = []
+  let requests = 0
+  const fetchText = createRetryingFetchText({
+    retries: 2,
+    retryDelayMs: 300,
+    maxRetryDelayMs: 500,
+    maxRetryAfterMs: 1000,
+    jitterRatio: 0,
+    fetchImpl: async () => {
+      requests += 1
+      return new Response('temporary failure', { status: 503 })
+    },
+    waitImpl: async (milliseconds) => delays.push(milliseconds),
+  })
+
+  await assert.rejects(
+    fetchText(new URL('https://beautiful.wp.site/page-sitemap.xml'), { name: 'page' }),
+    /WordPress Yoast page sitemap failed: 503/,
+  )
+  assert.equal(requests, 3)
+  assert.deepEqual(delays, [300, 500])
+})
+
+test('Yoast sitemap integration parses content returned through the retry helper', async () => {
+  const fetchText = createRetryingFetchText({
+    retries: 0,
+    fetchImpl: async () => new Response('<urlset><url><loc>https://beautiful.wp.site/page/</loc></url></urlset>'),
+  })
+  const sitemaps = createYoastSitemapIntegration({
+    siteUrl: 'https://beautiful.wp.site',
+    sitemapNames: ['page'],
+    fetchText,
+  })
+
+  assert.deepEqual(await sitemaps.load(), { page: ['https://beautiful.wp.site/page/'] })
 })
 
 test('content policies select Gutenberg per type and report incomplete coverage', () => {

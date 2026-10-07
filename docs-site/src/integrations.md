@@ -57,24 +57,37 @@ This adapter is for build-time public catalog data. Do not use static build data
 
 ## Yoast SEO sitemaps
 
-The sitemap adapter builds URLs from a caller-provided site origin and sitemap names. Its transport is also supplied by the consumer, so retry and logging behavior stays explicit.
+The sitemap adapter builds URLs from a caller-provided site origin and sitemap names. Use the optional `createRetryingFetchText()` transport when you want bounded retries for temporary HTTP or network failures; consumers configure the retry timing and may log each retry.
 
 ```js
-const { createYoastSitemapIntegration } = require('wp-awesome/integrations/yoast')
+const {
+  createRetryingFetchText,
+  createYoastSitemapIntegration,
+} = require('wp-awesome/integrations/yoast')
+
+const fetchText = createRetryingFetchText({
+  retries: 5,
+  retryDelayMs: 5000,
+  maxRetryDelayMs: 30000,
+  maxRetryAfterMs: 120000,
+  timeoutMs: 20000,
+  jitterRatio: 0.2,
+  onRetry: ({ name, status, nextAttempt, retries, delayMs }) => {
+    console.warn(`Retrying the ${name} sitemap after HTTP ${status}: attempt ${nextAttempt}/${retries + 1} in ${delayMs}ms.`)
+  },
+})
 
 const sitemaps = createYoastSitemapIntegration({
   siteUrl: 'https://beautiful.wp.site',
   sitemapNames: ['page', 'post', 'product'],
-  fetchText: async (url) => {
-    const response = await fetch(url)
-    if (!response.ok) throw new Error(`Sitemap request failed: ${response.status} ${url}`)
-    return response.text()
-  },
+  fetchText,
 })
 
 const locationsByType = await sitemaps.load()
 console.log(locationsByType.page)
 ```
+
+`createRetryingFetchText()` retries network errors, HTTP 429, and HTTP 5xx responses. It uses exponential backoff with jitter, honors numeric or HTTP-date `Retry-After` values up to `maxRetryAfterMs`, and times out each request. Other 4xx responses fail immediately. Defaults are three retries, a 400 ms initial delay, a 30-second backoff cap, a 30-second `Retry-After` cap, a 20-second timeout, and 20% jitter. Set `onRetry` for diagnostics; the callback receives the URL, sitemap name, status, current/next attempt, configured retry count, delay, and error.
 
 `load()` requests all configured Yoast sitemap documents in parallel and returns a map keyed by sitemap name. `parseSitemapLocations()` accepts a `urlset` or a `sitemapindex` XML root and returns decoded `<loc>` values. It does not recursively fetch nested sitemap indexes, select REST records, or decide public route inclusion; implement those rules in the consuming loader.
 

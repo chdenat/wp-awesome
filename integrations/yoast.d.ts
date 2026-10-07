@@ -12,6 +12,28 @@
  ******************************************************************************/
 
 export function parseSitemapLocations(xml: string): string[]
+export function createRetryingFetchText(options?: {
+  fetchImpl?: typeof fetch
+  retries?: number
+  retryDelayMs?: number
+  maxRetryDelayMs?: number
+  maxRetryAfterMs?: number
+  timeoutMs?: number
+  jitterRatio?: number
+  onRetry?: (details: {
+    url: URL
+    name: string
+    status: number | null
+    attempt: number
+    nextAttempt: number
+    retries: number
+    delayMs: number
+    error: Error
+  }) => void
+  waitImpl?: (milliseconds: number) => Promise<void>
+  nowImpl?: () => number
+  randomImpl?: () => number
+}): (url: URL, details: { name: string }) => Promise<string>
 export function createYoastSitemapIntegration(options: {
   siteUrl: string | URL
   sitemapNames: string[]

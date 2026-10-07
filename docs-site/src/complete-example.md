@@ -50,7 +50,7 @@ Use the published package version in the consumer manifest:
     "test": "node --test"
   },
   "dependencies": {
-    "wp-awesome": "^0.1.1"
+    "wp-awesome": "^0.3.0"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6"

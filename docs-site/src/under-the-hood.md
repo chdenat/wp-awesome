@@ -105,7 +105,7 @@ Collision checks are **not automatic**. The consuming site must run them after i
 The integrations are opt-in helpers, not mandatory dependencies on those WordPress plugins:
 
 - **WooCommerce Store API:** fetches public product and category collections through the configured REST client. It does not provide cart, checkout, stock reservation, accounts, orders, payment processing, or a private customer session.
-- **Yoast-compatible sitemap:** requests only the sitemap names the consumer lists and extracts `<loc>` values from `urlset` or `sitemapindex` XML. The consumer supplies `fetchText`; the adapter does not discover sitemap names, filter URLs against routes, or implement transport retries.
+- **Yoast-compatible sitemap:** requests only the sitemap names the consumer lists and extracts `<loc>` values from `urlset` or `sitemapindex` XML. The consumer supplies `fetchText`; the optional `createRetryingFetchText()` helper provides bounded retries for transient transport and server failures. The adapter does not discover sitemap names, filter URLs against routes, or decide which sitemap names to request.
 - **Forminator and MailPoet:** consumers may supply form detectors to `collectFormReferences()` for an inventory of form IDs and source records. WP Awesome does not render, embed, submit, or validate plugin forms. Detectors that rely on custom `data-*` attributes must explicitly allow those attributes through the HTML sanitizer.
 
 WP Awesome has only been tried with simple, single-language sites. Multilingual sites have not been tested, and the package has no built-in WPML or Polylang adapter.

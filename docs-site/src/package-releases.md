@@ -19,7 +19,7 @@ permalink: package-releases/index.html
 -->
 
 
-The package name is `wp-awesome`, without a scope. The repository metadata follows the existing Timeline convention at `chdenat/wp-awesome`. Version `0.1.1` is current and published on npm. Creating local files does not publish a later version or deploy the documentation site.
+The package name is `wp-awesome`, without a scope. The repository metadata follows the existing Timeline convention at `chdenat/wp-awesome`. Version `0.3.0` is current and published on npm. Creating local files does not publish a later version or deploy the documentation site.
 
 ## Install locally now
 
@@ -40,17 +40,17 @@ bun run verify
 bun pm pack --ignore-scripts --destination artifacts
 
 # In the consumer:
-npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.1.1.tgz
+npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.3.0.tgz
 ```
 
-A consumer may keep that tarball under its own `vendor/` directory and declare `"wp-awesome": "file:vendor/wp-awesome-0.1.1.tgz"`. Include the archive and consumer lockfile together to install from that local artifact in CI. Repack and reinstall after package changes. Do not hand-edit the archive.
+A consumer may keep that tarball under its own `vendor/` directory and declare `"wp-awesome": "file:vendor/wp-awesome-0.3.0.tgz"`. Include the archive and consumer lockfile together to install from that local artifact in CI. Repack and reinstall after package changes. Do not hand-edit the archive.
 
 ## Install from npm
 
 ```sh
-npm install wp-awesome@0.1.1
+npm install wp-awesome@0.3.0
 # Or:
-bun add wp-awesome@0.1.1
+bun add wp-awesome@0.3.0
 ```
 
 Install runtime dependencies with the package manager used by the consuming frontend. Bun also runs the generated Eleventy frontend and this repository's verification scripts. The optional WordPress build controls are a separate PHP plugin that installs a managed MU-plugin.
@@ -58,9 +58,9 @@ Install runtime dependencies with the package manager used by the consuming fron
 ## Install from GitHub after the repository and tag exist
 
 ```sh
-npm install github:chdenat/wp-awesome#v0.1.1
+npm install github:chdenat/wp-awesome#v0.3.0
 # Or:
-bun add github:chdenat/wp-awesome#v0.1.1
+bun add github:chdenat/wp-awesome#v0.3.0
 ```
 
 The dependency key and imports remain `wp-awesome`. Use a version tag or full commit hash. The source CommonJS files and declarations are publishable directly, so no `prepare`, `prepack`, or install lifecycle script is needed. This is a Git repository dependency, rather than GitHub Packages; it does not require an npm organization scope or a separate registry.

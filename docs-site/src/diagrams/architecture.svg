@@ -1,0 +1,81 @@
+<!--
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/diagrams/architecture.svg
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">WP Awesome architecture</title>
+  <desc id="diagram-description">WordPress provides content through its REST API. The optional WP Awesome plugin sends build events to the consumer's GitHub workflow. The consumer project uses the wp-awesome JavaScript package and Eleventy to generate and deploy a static site.</desc>
+  <defs>
+    <marker id="arrow-data" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#2563a6"/></marker>
+    <marker id="arrow-event" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#7651a8"/></marker>
+    <marker id="arrow-build" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#26785c"/></marker>
+    <style>
+      text { font-family: system-ui, sans-serif; fill: #172536 }
+      .heading { font-size: 23px; font-weight: 700 }
+      .node-title { font-size: 18px; font-weight: 700 }
+      .node-copy { font-size: 15px; fill: #45566a }
+      .edge-label { font-size: 14px; font-weight: 600 }
+      .wordpress { fill: #f1f6fb; stroke: #7192b5; stroke-width: 2 }
+      .consumer { fill: #fbfcfe; stroke: #8a9bad; stroke-width: 2; stroke-dasharray: 9 7 }
+      .source-node { fill: #fff; stroke: #7192b5; stroke-width: 2 }
+      .plugin-node { fill: #f5f0fb; stroke: #9476b8; stroke-width: 2 }
+      .build-node { fill: #edf7f2; stroke: #6d9a83; stroke-width: 2 }
+      .output-node { fill: #fff6e9; stroke: #c49a5d; stroke-width: 2 }
+      .data-edge { fill: none; stroke: #2563a6; stroke-width: 3; marker-end: url(#arrow-data) }
+      .event-edge { fill: none; stroke: #7651a8; stroke-width: 3; stroke-dasharray: 8 7; marker-end: url(#arrow-event) }
+      .build-edge { fill: none; stroke: #26785c; stroke-width: 3; marker-end: url(#arrow-build) }
+    </style>
+  </defs>
+
+  <rect class="wordpress" x="30" y="55" width="250" height="410" rx="22"/>
+  <text class="heading" x="55" y="94">WordPress site</text>
+  <rect class="source-node" x="50" y="125" width="210" height="115" rx="14"/>
+  <text class="node-title" x="70" y="163">Content + REST API</text>
+  <text class="node-copy" x="70" y="192">Pages, posts, media</text>
+  <text class="node-copy" x="70" y="216">and public content types</text>
+  <rect class="plugin-node" x="50" y="300" width="210" height="130" rx="14"/>
+  <text class="node-title" x="70" y="338">Optional plugin</text>
+  <text class="node-copy" x="70" y="367">Managed MU-plugin</text>
+  <text class="node-copy" x="70" y="393">Admin and content-change</text>
+  <text class="node-copy" x="70" y="415">build requests</text>
+
+  <rect class="consumer" x="330" y="55" width="840" height="410" rx="22"/>
+  <text class="heading" x="355" y="94">Consumer-owned project</text>
+  <rect class="build-node" x="365" y="140" width="220" height="130" rx="14"/>
+  <text class="node-title" x="385" y="178">wp-awesome</text>
+  <text class="node-copy" x="385" y="207">REST client · conversion</text>
+  <text class="node-copy" x="385" y="233">normalization · routes</text>
+  <rect class="build-node" x="650" y="140" width="220" height="130" rx="14"/>
+  <text class="node-title" x="670" y="178">Eleventy build</text>
+  <text class="node-copy" x="670" y="207">Consumer loader</text>
+  <text class="node-copy" x="670" y="233">and templates</text>
+  <rect class="output-node" x="935" y="140" width="205" height="130" rx="14"/>
+  <text class="node-title" x="955" y="178">Static site</text>
+  <text class="node-copy" x="955" y="207">HTML and assets</text>
+  <text class="node-copy" x="955" y="233">deployed by the consumer</text>
+  <rect class="plugin-node" x="650" y="315" width="220" height="105" rx="14"/>
+  <text class="node-title" x="670" y="353">GitHub workflow</text>
+  <text class="node-copy" x="670" y="382">Chooses target and scope</text>
+  <text class="node-copy" x="670" y="405">then runs its build</text>
+
+  <path class="data-edge" d="M260 182H365"/>
+  <text class="edge-label" x="278" y="164">REST JSON</text>
+  <path class="data-edge" d="M585 195H650"/>
+  <text class="edge-label" x="589" y="176">records</text>
+  <path class="build-edge" d="M870 195H935"/>
+  <text class="edge-label" x="873" y="176">static files</text>
+  <path class="event-edge" d="M260 365H650"/>
+  <text class="edge-label" x="410" y="347">repository_dispatch</text>
+  <path class="build-edge" d="M760 315V270"/>
+  <text class="edge-label" x="774" y="300">run build</text>
+  <text class="node-copy" x="355" y="448">Solid arrows: content and build output. Dashed arrow: build request.</text>
+</svg>

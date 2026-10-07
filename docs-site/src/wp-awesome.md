@@ -61,6 +61,17 @@ The MU-plugin keeps a short in-memory record for each affected post during the c
 
 The automatic request is synchronous at shutdown, with a 15-second HTTP timeout. If GitHub rejects it or cannot be reached, the MU-plugin writes a short error code to the PHP error log. Correct the GitHub configuration and use either the global action or the item's row action to request another build.
 
+## Build request sequence
+
+Manual requests and automatic public-content changes converge on the same GitHub event. The event carries the selected target and scope; it does not contain the page or post body. The consumer workflow fetches current content from WordPress and decides whether to rebuild one route or the whole site.
+
+<figure class="docs-diagram">
+  <div class="docs-diagram-scroll" role="region" tabindex="0" aria-label="WordPress rebuild sequence diagram, scroll horizontally to inspect">
+    <img src="../diagrams/rebuild-sequence.svg" alt="Sequence: an administrator can request a site or record build, or a published-content change can trigger a record event at request shutdown. GitHub starts the consumer workflow, which fetches canonical WordPress content through the REST API and WP Awesome package before building and deploying according to its own configuration." width="1500" height="790">
+  </div>
+  <figcaption>GitHub accepting the event confirms delivery only. The consumer workflow owns the actual build and any deployment. On narrow screens, scroll horizontally to inspect the full sequence.</figcaption>
+</figure>
+
 ## Install and update the plugin
 
 The WordPress package contains four PHP files: `wp-awesome.php` (the regular plugin entry point), `wp-awesome-mu.php` (the feature implementation), `lifecycle.php` (safe MU-plugin file operations), and `uninstall.php` (the guarded WordPress uninstall entry point). Its `languages/` directory contains the translation template, French catalog, and compiled French catalog. The package requires WordPress 5.6 or later and PHP 7.2 or later. WordPress 5.6 introduced the `wp_after_insert_post` hook used for complete post-save capture.

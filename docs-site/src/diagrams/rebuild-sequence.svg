@@ -1,0 +1,88 @@
+<!--
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/diagrams/rebuild-sequence.svg
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 790" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">WordPress rebuild request sequence</title>
+  <desc id="diagram-description">A manual global or record action, or an automatic published-content change, sends a repository dispatch event to GitHub. The consumer workflow reads its target and scope, fetches canonical content with the wp-awesome package through the WordPress REST API, then builds and deploys according to its own configuration.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#7651a8"/></marker>
+    <marker id="arrow-left" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto"><path d="M10 0 0 5 10 10Z" fill="#2563a6"/></marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#2563a6"/></marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#26785c"/></marker>
+    <style>
+      text { font-family: system-ui, sans-serif; fill: #172536 }
+      .actor { fill: #f1f6fb; stroke: #7192b5; stroke-width: 2 }
+      .actor-plugin { fill: #f5f0fb; stroke: #9476b8; stroke-width: 2 }
+      .actor-package { fill: #edf7f2; stroke: #6d9a83; stroke-width: 2 }
+      .actor-host { fill: #fff6e9; stroke: #c49a5d; stroke-width: 2 }
+      .actor-title { font-size: 16px; font-weight: 700; text-anchor: middle }
+      .life { stroke: #a8b4c0; stroke-width: 2; stroke-dasharray: 6 7 }
+      .frame-manual { fill: #f1f6fb; stroke: #8ca3bb; stroke-width: 1.5 }
+      .frame-auto { fill: #f5f0fb; stroke: #a18abb; stroke-width: 1.5 }
+      .frame-title { font-size: 17px; font-weight: 700 }
+      .event { stroke: #7651a8; stroke-width: 2.5; marker-end: url(#arrow) }
+      .data { stroke: #2563a6; stroke-width: 2.5; marker-end: url(#arrow-blue) }
+      .data-left { stroke: #2563a6; stroke-width: 2.5; marker-end: url(#arrow-left) }
+      .build { stroke: #26785c; stroke-width: 2.5; marker-end: url(#arrow-green) }
+      .message-label { font-size: 15px; font-weight: 600; text-anchor: middle }
+      .note { fill: #fff; stroke: #9aa9b8; stroke-width: 1.5 }
+      .note-label { font-size: 14px; text-anchor: middle; fill: #45566a }
+    </style>
+  </defs>
+
+  <rect class="actor" x="20" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="110" y="58"><tspan x="110">Editor or</tspan><tspan x="110" dy="21">administrator</tspan></text>
+  <rect class="actor-plugin" x="230" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="320" y="58"><tspan x="320">WordPress +</tspan><tspan x="320" dy="21">WP Awesome MU-plugin</tspan></text>
+  <rect class="actor" x="440" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="530" y="58"><tspan x="530">GitHub API</tspan><tspan x="530" dy="21">and repository</tspan></text>
+  <rect class="actor" x="650" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="740" y="58"><tspan x="740">Consumer</tspan><tspan x="740" dy="21">workflow</tspan></text>
+  <rect class="actor" x="860" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="950" y="58"><tspan x="950">WordPress</tspan><tspan x="950" dy="21">REST API</tspan></text>
+  <rect class="actor-package" x="1070" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="1160" y="58"><tspan x="1160">WP Awesome</tspan><tspan x="1160" dy="21">JavaScript package</tspan></text>
+  <rect class="actor-host" x="1280" y="25" width="180" height="80" rx="12"/>
+  <text class="actor-title" x="1370" y="58"><tspan x="1370">Consumer</tspan><tspan x="1370" dy="21">site host</tspan></text>
+
+  <path class="life" d="M110 105V770M320 105V770M530 105V770M740 105V770M950 105V770M1160 105V770M1370 105V770"/>
+
+  <rect class="frame-manual" x="30" y="125" width="590" height="115" rx="12"/>
+  <text class="frame-title" x="50" y="152">Manual build request</text>
+  <text class="message-label" x="215" y="179">Click global or per-record action</text>
+  <path class="event" d="M110 193H320"/>
+  <text class="message-label" x="425" y="215">Dispatch scope: site or record</text>
+  <path class="event" d="M320 229H530"/>
+
+  <rect class="frame-auto" x="30" y="255" width="590" height="160" rx="12"/>
+  <text class="frame-title" x="50" y="282">Automatic public-content change</text>
+  <text class="message-label" x="215" y="309">Publish or update public content</text>
+  <path class="event" d="M110 323H320"/>
+  <rect class="note" x="230" y="337" width="180" height="42" rx="8"/>
+  <text class="note-label" x="320" y="354"><tspan x="320">Capture and merge record</tspan><tspan x="320" dy="17">changes in request memory</tspan></text>
+  <text class="message-label" x="425" y="389">At shutdown: scope is record</text>
+  <path class="event" d="M320 402H530"/>
+
+  <text class="message-label" x="635" y="450">Matching event starts the workflow</text>
+  <path class="event" d="M530 464H740"/>
+  <text class="message-label" x="950" y="511">Start the consumer build</text>
+  <path class="build" d="M740 525H1160"/>
+  <text class="message-label" x="1055" y="570">GET the selected content</text>
+  <path class="data-left" d="M1160 584H950"/>
+  <text class="message-label" x="1055" y="630">Canonical WordPress REST JSON</text>
+  <path class="data" d="M950 644H1160"/>
+  <text class="message-label" x="950" y="690">Normalized records and routes</text>
+  <path class="data-left" d="M1160 704H740"/>
+  <text class="message-label" x="1055" y="748">Consumer workflow deploys its output</text>
+  <path class="build" d="M740 762H1370"/>
+</svg>

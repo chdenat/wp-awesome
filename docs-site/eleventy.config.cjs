@@ -22,6 +22,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setServerOptions({ port: 4177, portReassignmentRetryCount: 0 })
   eleventyConfig.addPlugin(syntaxHighlight, { errorOnInvalidLanguage: true })
   eleventyConfig.addPassthroughCopy({ 'docs-site/.vite/assets': 'assets' })
+  eleventyConfig.addPassthroughCopy({ 'docs-site/src/diagrams': 'diagrams' })
 
   return {
     pathPrefix: process.env.WP_AWESOME_DOCS_PATH_PREFIX || '/',

@@ -18,29 +18,27 @@ permalink: under-the-hood/index.html
  * Copyright © 2026 Christian Denat
 -->
 
-## The complete data path
+## Architecture at a glance
 
-The JavaScript API in `wp-awesome` is a server-side build library. The optional WP Awesome WordPress plugin installs an MU-plugin that sends GitHub dispatch events for global builds, individual records, and changes to published public content. It keeps changed record IDs in request memory and creates no plugin-owned database tables or retry queue. The consuming project still calls the JavaScript API from an Eleventy data loader, chooses its content collections and presentation, and owns its complete build and deployment workflow.
+The `wp-awesome` JavaScript package runs inside the consuming project's build. The optional WordPress plugin and its managed MU-plugin send build requests to that project's GitHub workflow. WordPress remains the content source; the consumer chooses what to fetch and owns the Eleventy templates, build workflow, and hosting.
 
-```text
-1. Consumer chooses REST endpoints and query parameters
-                  │
-2. REST client requests JSON, pages collections, retries bounded failures
-                  │
-3. Consumer selects content policy and allowlisted fields
-                  │
-4. Gutenberg adapter selects serialized blocks or WordPress-rendered HTML
-                  │
-5. Record adapter builds a small template-facing contract
-                  │
-6. Route resolver creates public URLs and Eleventy output paths
-                  │
-7. Consumer checks route conflicts and returns global data
-                  │
-8. Consumer templates render the static site
-                  │
-9. Consumer workflow tests, builds, promotes, and verifies a versioned release
-```
+<figure class="docs-diagram">
+  <div class="docs-diagram-scroll" role="region" tabindex="0" aria-label="Architecture diagram, scroll horizontally to inspect">
+    <img src="../diagrams/architecture.svg" alt="Architecture: WordPress REST supplies content to the wp-awesome package in the consumer project. The optional WordPress plugin sends repository dispatch events to the consumer's GitHub workflow, which runs Eleventy and deploys the resulting static site." width="1200" height="500">
+  </div>
+  <figcaption>WP Awesome prepares build data and sends triggers. The consuming project decides how to build and deploy the frontend. On narrow screens, scroll horizontally to inspect the full diagram.</figcaption>
+</figure>
+
+## Content build sequence
+
+The consumer's Eleventy loader selects REST endpoints and policies. The package fetches and normalizes that data, then returns records and routes for Eleventy templates to render.
+
+<figure class="docs-diagram">
+  <div class="docs-diagram-scroll" role="region" tabindex="0" aria-label="Content build sequence diagram, scroll horizontally to inspect">
+    <img src="../diagrams/content-flow-sequence.svg" alt="Sequence: the consumer starts Eleventy, whose loader calls the WP Awesome package. The package requests selected records from WordPress REST, normalizes them and resolves routes, then returns them for Eleventy templates to render as static output." width="1300" height="650">
+  </div>
+  <figcaption>The consumer configures the endpoints and templates. WP Awesome does not discover every WordPress content type or deploy the generated files. On narrow screens, scroll horizontally to inspect the full sequence.</figcaption>
+</figure>
 
 The package modules are intentionally separated: `rest-client.js` owns HTTP mechanics, `content.js` owns serialized Gutenberg interpretation, `records.js` owns public data shaping, `routes.js` owns URL contracts, and `eleventy.js` only registers a caller-provided data loader. `wordpress-plugin/wp-awesome.php` installs the managed MU-plugin; `wordpress-plugin/wp-awesome-mu.php` owns the admin controls, content-change hooks, and GitHub notification delivery. In a local checkout, inspect those files directly to see the implementation behind this guide.
 

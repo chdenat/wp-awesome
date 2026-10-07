@@ -1,0 +1,68 @@
+<!--
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/diagrams/content-flow-sequence.svg
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 650" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Content build sequence</title>
+  <desc id="diagram-description">During a consumer build, Eleventy calls its loader. The wp-awesome package requests selected content from the WordPress REST API, converts and normalizes the response, and returns records and routes for Eleventy templates to render as static files.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#2563a6"/></marker>
+    <marker id="arrow-left" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto"><path d="M10 0 0 5 10 10Z" fill="#2563a6"/></marker>
+    <style>
+      text { font-family: system-ui, sans-serif; fill: #172536 }
+      .actor { fill: #f1f6fb; stroke: #7192b5; stroke-width: 2 }
+      .actor-package { fill: #edf7f2; stroke: #6d9a83; stroke-width: 2 }
+      .actor-output { fill: #fff6e9; stroke: #c49a5d; stroke-width: 2 }
+      .actor-title { font-size: 17px; font-weight: 700; text-anchor: middle }
+      .life { stroke: #a8b4c0; stroke-width: 2; stroke-dasharray: 6 7 }
+      .message { stroke: #2563a6; stroke-width: 2.5; marker-end: url(#arrow) }
+      .message-left { stroke: #2563a6; stroke-width: 2.5; marker-end: url(#arrow-left) }
+      .message-label { font-size: 16px; font-weight: 600; text-anchor: middle }
+      .note { fill: #f4f7fa; stroke: #9aa9b8; stroke-width: 1.5 }
+      .note-label { font-size: 15px; text-anchor: middle; fill: #45566a }
+    </style>
+  </defs>
+
+  <rect class="actor" x="10" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="100" y="57"><tspan x="100">Consumer</tspan><tspan x="100" dy="22">build workflow</tspan></text>
+  <rect class="actor" x="230" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="320" y="57"><tspan x="320">Eleventy</tspan><tspan x="320" dy="22">loader</tspan></text>
+  <rect class="actor-package" x="450" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="540" y="57"><tspan x="540">WP Awesome</tspan><tspan x="540" dy="22">package</tspan></text>
+  <rect class="actor" x="670" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="760" y="57"><tspan x="760">WordPress</tspan><tspan x="760" dy="22">REST API</tspan></text>
+  <rect class="actor" x="890" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="980" y="57"><tspan x="980">Eleventy</tspan><tspan x="980" dy="22">templates</tspan></text>
+  <rect class="actor-output" x="1110" y="25" width="180" height="76" rx="12"/>
+  <text class="actor-title" x="1200" y="57"><tspan x="1200">Static</tspan><tspan x="1200" dy="22">output</tspan></text>
+
+  <path class="life" d="M100 101V625M320 101V625M540 101V625M760 101V625M980 101V625M1200 101V625"/>
+
+  <text class="message-label" x="210" y="137">Start Eleventy</text>
+  <path class="message" d="M100 151H320"/>
+  <text class="message-label" x="430" y="197">Run loadData()</text>
+  <path class="message" d="M320 211H540"/>
+  <text class="message-label" x="650" y="257">GET selected endpoints</text>
+  <path class="message" d="M540 271H760"/>
+  <text class="message-label" x="650" y="317">JSON records + paging headers</text>
+  <path class="message-left" d="M760 331H540"/>
+
+  <rect class="note" x="420" y="356" width="240" height="66" rx="10"/>
+  <text class="note-label" x="540" y="382"><tspan x="540">Apply policy, convert blocks,</tspan><tspan x="540" dy="21">normalize records, resolve routes</tspan></text>
+
+  <text class="message-label" x="430" y="457">Records and routes</text>
+  <path class="message-left" d="M540 471H320"/>
+  <text class="message-label" x="650" y="517">Provide Eleventy global data</text>
+  <path class="message" d="M320 531H980"/>
+  <text class="message-label" x="1090" y="577">Render HTML and assets</text>
+  <path class="message" d="M980 591H1200"/>
+</svg>

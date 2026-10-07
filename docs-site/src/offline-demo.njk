@@ -1,0 +1,33 @@
+---
+layout: layouts/docs.njk
+title: Offline normalization demo
+section: Examples
+description: An Eleventy page built from the real wp-awesome API and a fictitious REST response, with no WordPress connection or credentials.
+permalink: offline-demo/index.html
+---
+{#
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/offline-demo.njk
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+#}
+
+<h2>Generated content</h2>
+<article>
+  <h3>{{ demo.record.title.text }}</h3>
+  {{ demo.record.content.html | safe }}
+  <p>Public path: <code>{{ demo.record.route.path }}</code></p>
+  <p>Output file: <code>{{ demo.record.route.outputPath }}</code></p>
+</article>
+<h2>Source REST record</h2>
+{% highlight "json" %}{{ demo.sourceJson | safe }}{% endhighlight %}
+<h2>Normalized public record</h2>
+{% highlight "json" %}{{ demo.recordJson | safe }}{% endhighlight %}
+<p>The data file <code>docs-site/src/_data/demo.js</code> calls the package's public normalization API. This template renders the resulting contract. The local relative import is equivalent to <code>require('wp-awesome')</code> in an installed consumer.</p>
+<p>Continue with the <a href="/complete-example/">complete consumer example</a> to replace the fixture with paginated REST requests.</p>

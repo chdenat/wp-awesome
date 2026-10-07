@@ -1,0 +1,116 @@
+{#
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/_includes/layouts/docs.njk
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+#}
+
+<!doctype html>
+<html class="wa-theme-awesome wa-palette-default wa-brand-blue wa-light" lang="en" data-icon-base="{{ '/assets/fontawesome/' | url }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ description }}">
+    <meta name="color-scheme" content="light dark">
+    <title>{{ title }} · {{ site.name }}</title>
+    <script src="{{ '/assets/theme-init.js' | url }}"></script>
+    <link rel="icon" type="image/svg+xml" href="{{ '/assets/fontawesome/svgs/brands/font-awesome.svg' | url }}">
+    <link rel="stylesheet" href="{{ '/assets/docs.css' | url }}">
+    <script type="module" src="{{ '/assets/docs.js' | url }}"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <wa-page class="docs-shell" mobile-breakpoint="48rem">
+      <header slot="header" class="site-header">
+        <div class="header-inner wa-split">
+          <div class="header-branding wa-cluster wa-gap-s">
+            <div class="brand">
+              <div class="brand-project wa-cluster wa-gap-xs">
+                <a class="brand-home" href="{{ '/' | url }}" aria-label="{{ site.name }} documentation home">
+                  <wa-icon name="house" aria-hidden="true"></wa-icon>
+                </a>
+                <a class="brand-name" href="{{ '/' | url }}" aria-label="{{ site.name }} home">WP Awesome</a>
+              </div>
+              <nav class="brand-resources wa-cluster" aria-label="WordPress frontend tools: Build Awesome, Web Awesome, and Font Awesome">
+                <a class="brand-resource brand-wordpress" href="https://wordpress.org/" target="_blank" rel="noopener noreferrer" aria-label="WordPress website">
+                  <wa-icon family="brands" name="wordpress-simple" aria-hidden="true"></wa-icon>
+                </a>
+                <a class="brand-resource brand-build-awesome" href="https://build.awesome.me/" target="_blank" rel="noopener noreferrer" aria-label="Build Awesome website">
+                  <wa-icon family="brands" name="build-awesome" aria-hidden="true"></wa-icon>
+                </a>
+                <a class="brand-resource brand-web-awesome" href="https://webawesome.com/" target="_blank" rel="noopener noreferrer" aria-label="Web Awesome website">
+                  <wa-icon family="brands" name="web-awesome" aria-hidden="true"></wa-icon>
+                </a>
+                <a class="brand-resource brand-font-awesome" href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer" aria-label="Font Awesome website">
+                  <wa-icon family="brands" name="font-awesome" aria-hidden="true"></wa-icon>
+                </a>
+              </nav>
+            </div>
+          </div>
+
+          <nav class="header-actions wa-cluster" aria-label="Project links and display settings">
+            <wa-button appearance="plain" href="{{ site.repository }}" target="_blank" rel="noopener noreferrer">
+              <wa-icon family="brands" name="github" label="WP Awesome on GitHub"></wa-icon>
+            </wa-button>
+            <wa-button appearance="plain" href="{{ site.npm }}" target="_blank" rel="noopener noreferrer">
+              <wa-icon family="brands" name="npm" label="WP Awesome on npm"></wa-icon>
+            </wa-button>
+            <wa-button class="theme-toggle" appearance="plain" data-theme-toggle>
+              <wa-icon data-theme-icon name="moon" label="Switch to dark mode"></wa-icon>
+            </wa-button>
+          </nav>
+        </div>
+        <wa-breadcrumb class="breadcrumb-nav" label="Breadcrumb">
+          <wa-icon slot="separator" name="chevron-right" variant="solid" aria-hidden="true"></wa-icon>
+          <wa-breadcrumb-item href="{{ '/' | url }}">Home</wa-breadcrumb-item>
+          {% if page.url != '/' %}
+            <wa-breadcrumb-item href="{{ page.url | url }}">{{ title }}</wa-breadcrumb-item>
+          {% endif %}
+        </wa-breadcrumb>
+      </header>
+
+      <nav slot="navigation-header" class="sidebar-heading" aria-label="Guide introduction">
+        <span class="sidebar-kicker">Developer documentation</span>
+      </nav>
+
+      <nav slot="navigation" id="docs-navigation" class="sidebar-nav" aria-label="Documentation">
+        {% for group in site.navigation %}
+          <section class="nav-group" aria-labelledby="nav-group-{{ loop.index }}">
+            <h2 id="nav-group-{{ loop.index }}">{{ group.title }}</h2>
+            <ul>
+              {% for item in group.items %}
+                <li>
+                  <a href="{{ item.href | url }}" data-drawer="close"{% if page.url == item.href %} aria-current="page"{% endif %}>{{ item.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endfor %}
+      </nav>
+
+      <main id="main" class="article{% if page.url == '/' %} article-home{% endif %}" tabindex="-1">
+        {% if page.url != '/' %}
+          <header class="article-header">
+            <p class="eyebrow">{{ section }}</p>
+            <h1>{{ title }}</h1>
+            <p class="article-lede">{{ description }}</p>
+          </header>
+        {% endif %}
+        <div class="article-content">
+          {{ content | safe }}
+        </div>
+        <footer class="article-footer">
+          <span>Open source · MIT license</span>
+          <a href="{{ site.repository }}/blob/main/LICENSE.md" target="_blank" rel="noopener noreferrer">Read the license</a>
+        </footer>
+      </main>
+
+    </wa-page>
+  </body>
+</html>

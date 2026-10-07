@@ -1,0 +1,143 @@
+---
+layout: layouts/docs.njk
+title: Setup assistant
+section: Start here
+description: Generate your Eleventy frontend for WordPress, see exactly where its files belong, and follow the local, staging, then production checks.
+permalink: setup-assistant/index.html
+---
+{#
+ * This file is part of the wp-awesome package.
+ *
+ * File: docs-site/src/setup-assistant.njk
+ *
+ * Author: Christian Denat
+ *
+ * Created on: 2026-10-07
+ * Last modified: 2026-10-07
+ *
+ * Copyright © 2026 Christian Denat
+#}
+
+<p>WordPress stays your backend. This assistant creates the Eleventy frontend that WP Awesome provides, using Web Awesome components and Font Awesome icons. It prepares the selected content, templates, local preview, and staging and production settings.</p>
+
+<div class="setup-assistant" data-setup-assistant data-package-version="{{ site.version }}" data-eleventy-version="{{ site.eleventyVersion }}" data-webawesome-version="{{ site.webAwesomeVersion }}" data-fontawesome-version="{{ site.fontAwesomeVersion }}">
+  <ol class="assistant-progress" aria-label="Setup progress">
+    <li data-step-indicator aria-current="step"><span>1</span> Site and environments</li>
+    <li data-step-indicator><span>2</span> Content and installation</li>
+    <li data-step-indicator><span>3</span> Files and test order</li>
+  </ol>
+  <p data-assistant-loading>Loading the setup assistant…</p>
+  <noscript><p>Enable JavaScript to use the assistant, or follow the <a href="/complete-example/">complete example</a>.</p></noscript>
+  <p class="assistant-error" role="alert" tabindex="-1" data-assistant-error hidden></p>
+  <p class="visually-hidden" role="status" data-assistant-status></p>
+
+  <form class="assistant-form" novalidate hidden>
+    <fieldset data-assistant-step>
+      <legend tabindex="-1" data-step-heading>Tell us about your site</legend>
+      <div class="assistant-fields">
+        <div class="assistant-field">
+          <wa-input id="site-name" name="siteName" label="Site name" placeholder="Beautiful site" maxlength="100" required></wa-input>
+        </div>
+        <div class="assistant-field">
+          <wa-input id="project-name" name="projectName" label="Frontend project folder" value="beautiful-site" pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="64" required></wa-input>
+          <small>Lowercase letters, numbers, and hyphens. This is the root folder for the generated frontend.</small>
+        </div>
+        <div class="assistant-field">
+          <wa-input id="production-url" name="productionUrl" type="url" label="Production frontend URL" placeholder="https://www.example.com" required></wa-input>
+        </div>
+        <div class="assistant-field">
+          <wa-input id="staging-url" name="stagingUrl" type="url" label="Staging frontend URL" placeholder="https://staging.example.com" required></wa-input>
+        </div>
+        <p class="assistant-field-wide assistant-help">Use separate public HTTP(S) origins without subdirectories. Staging is where you verify each frontend change before production.</p>
+        <div class="assistant-field">
+          <wa-input id="wordpress-url" name="wordpressUrl" type="url" label="Production WordPress backend" placeholder="https://beautiful.wp.site" required></wa-input>
+          <small>Use the WordPress installation URL without <code>/wp-json/</code>. A subdirectory is allowed.</small>
+        </div>
+        <div class="assistant-field">
+          <wa-input id="staging-wordpress-url" name="stagingWordpressUrl" type="url" label="Staging WordPress backend (optional)" placeholder="Same backend as production"></wa-input>
+          <small>Enter a separate test WordPress site when staging uses its own content. Leave empty to use production content.</small>
+        </div>
+        <div class="assistant-field">
+          <wa-select id="site-language" name="language" label="Frontend language" value="en">
+            <wa-option value="en">English</wa-option>
+            <wa-option value="fr">French</wa-option>
+          </wa-select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset data-assistant-step hidden disabled>
+      <legend tabindex="-1" data-step-heading>Choose content and install WP Awesome</legend>
+      <p class="assistant-help">The generated Eleventy frontend requests published WordPress content during each build. Choose which collections to include; each one gets its own page template.</p>
+      <div class="assistant-fields">
+        <div class="assistant-field">
+          <wa-checkbox name="pages" value="yes" checked>Include WordPress pages</wa-checkbox>
+          <wa-input id="pages-route" name="pagesRoute" label="Page URL pattern" value="/pages/{slug}/" required></wa-input>
+        </div>
+        <div class="assistant-field">
+          <wa-checkbox name="posts" value="yes" checked>Include WordPress posts</wa-checkbox>
+          <wa-input id="posts-route" name="postsRoute" label="Post URL pattern" value="/journal/{slug}/" required></wa-input>
+        </div>
+        <p class="assistant-field-wide assistant-help">Keep one <code>{slug}</code> placeholder and a trailing slash. Page and post patterns must differ. The build checks all generated paths for collisions.</p>
+        <div class="assistant-field assistant-field-wide">
+          <wa-select id="content-mode" name="contentMode" label="How should Gutenberg content be read?" value="rendered">
+            <wa-option value="rendered">WordPress rendered HTML — no credentials required</wa-option>
+            <wa-option value="auto">Saved Gutenberg blocks — WordPress Application Password required</wa-option>
+          </wa-select>
+          <small>Rendered HTML keeps the output WordPress produces. Saved-block mode handles the fixed list below and falls back to rendered HTML for other blocks.</small>
+          <p class="note" data-content-help hidden>For saved-block mode, add the empty Application Password fields to your local environment files or CI secrets. The assistant never asks for credentials.</p>
+        </div>
+        <div class="assistant-field assistant-field-wide supported-blocks-panel">
+          <h3>Saved Gutenberg blocks supported by WP Awesome</h3>
+          <p>This built-in list is fixed. The assistant does not ask you to enter block names.</p>
+          <ul class="supported-block-list">
+            {% for name in site.supportedBlockNames %}<li><code>{{ name }}</code></li>{% endfor %}
+          </ul>
+        </div>
+        <div class="assistant-field assistant-field-wide">
+          <wa-select id="installation-source" name="installation" label="Where should the frontend install WP Awesome from?" value="local">
+            <wa-option value="local">Local checkout — available now</wa-option>
+            <wa-option value="npm">npm release — after publication</wa-option>
+            <wa-option value="github">GitHub tag — after publication</wa-option>
+          </wa-select>
+          <small>Version {{ site.version }} is currently local and unpublished. The generated project uses the source you choose.</small>
+        </div>
+        <div class="assistant-field assistant-field-wide" data-local-installation>
+          <wa-input id="local-package-path" name="localPackagePath" label="Absolute path to the WP Awesome checkout" placeholder="/absolute/path/to/wp-awesome" required></wa-input>
+          <small>Use the checkout path on the computer where you install this frontend project. Windows drive paths are supported.</small>
+        </div>
+      </div>
+    </fieldset>
+
+    <div data-assistant-step hidden>
+      <h2 tabindex="-1" data-step-heading>Your frontend files and deployment path</h2>
+      <p data-generated-summary></p>
+      <dl class="environment-summary" data-generated-environments></dl>
+      <wa-button variant="brand" appearance="accent" type="button" data-download-project>Download all files (.zip)</wa-button>
+      <p>The ZIP keeps every folder and file path. Extract it into the new project folder shown above. If you download files one at a time, save each file at the exact path displayed in its heading.</p>
+      <p class="note"><strong>Where the files go:</strong> Put <code>package.json</code> and <code>.eleventy.cjs</code> at the root of your new frontend project. Put the WordPress loader in <code>site/</code> and pages, layouts, styles, and scripts in <code>src/</code>. These files belong in the frontend project, not in the WordPress plugin folder.</p>
+      <p class="note" data-credentials-note hidden>Before a saved-block build, fill the empty <code>WORDPRESS_API_USERNAME</code> and <code>WORDPRESS_API_APPLICATION_PASSWORD</code> values in each local environment file, or supply them through CI secrets.</p>
+      <p class="note" data-release-note hidden>The selected npm release or GitHub tag must be published before dependency installation can succeed. Choose a local checkout to use the current version.</p>
+      <h2>Local → staging → production</h2>
+      <ol class="deployment-steps">
+        <li><strong>Local:</strong> copy <code>.env.staging.example</code> to <code>.env</code>, install the dependencies, then run the local preview. This previews the staging WordPress content and staging frontend URL.</li>
+        <li><strong>Staging:</strong> build and deploy to the staging host. Check pages, posts, routes, images, links, and every form before proceeding. Fix issues and repeat the staging checks.</li>
+        <li><strong>Production:</strong> only after staging passes, build with production settings and deploy the generated <code>_site/</code> files to the production host.</li>
+      </ol>
+      <p>The generated project prepares the frontend. Your project’s hosting workflow copies its built <code>_site/</code> output to staging and production; WordPress remains the content backend.</p>
+      <h2>Commands</h2>
+      <div data-generated-commands></div>
+      <h2>Generated files and exact save paths</h2>
+      <div data-generated-files></div>
+    </div>
+
+    <div class="assistant-actions">
+      <wa-button variant="neutral" appearance="outlined" type="button" data-assistant-back hidden>Back</wa-button>
+      <wa-button variant="brand" appearance="accent" type="submit" data-assistant-next>Continue</wa-button>
+    </div>
+  </form>
+</div>
+
+<h2>What this assistant sets up</h2>
+<p>It generates an Eleventy frontend that reads selected content from your WordPress backend. The output uses Web Awesome components and Font Awesome icons. The generated file paths are relative to the frontend project root.</p>
+<p>Use <a href="/gutenberg-content/">Gutenberg content</a> to understand the fixed block list and rendered-content fallback. Use <a href="/publishing-and-hosting/">staging and production deployment</a> for the full test-first publishing sequence. The optional <a href="/wp-awesome/">WordPress build controls</a> are separate from the frontend files.</p>

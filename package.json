@@ -1,0 +1,142 @@
+{
+  "name": "wp-awesome",
+  "version": "0.1.0",
+  "description": "Build Eleventy frontends for WordPress with Web Awesome components and Font Awesome icons.",
+  "author": "Christian Denat",
+  "license": "MIT",
+  "homepage": "https://github.com/chdenat/wp-awesome#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chdenat/wp-awesome.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chdenat/wp-awesome/issues"
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "integrations/*.js",
+    "integrations/*.d.ts",
+    "wordpress-plugin/*.php",
+    "wordpress-plugin/languages/*",
+    "LICENSE.md",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "default": "./index.js"
+    },
+    "./content": {
+      "types": "./content.d.ts",
+      "require": "./content.js",
+      "default": "./content.js"
+    },
+    "./rest-client": {
+      "types": "./rest-client.d.ts",
+      "require": "./rest-client.js",
+      "default": "./rest-client.js"
+    },
+    "./records": {
+      "types": "./records.d.ts",
+      "require": "./records.js",
+      "default": "./records.js"
+    },
+    "./routes": {
+      "types": "./routes.d.ts",
+      "require": "./routes.js",
+      "default": "./routes.js"
+    },
+    "./styles": {
+      "types": "./styles.d.ts",
+      "require": "./styles.js",
+      "default": "./styles.js"
+    },
+    "./policies": {
+      "types": "./policies.d.ts",
+      "require": "./policies.js",
+      "default": "./policies.js"
+    },
+    "./eleventy": {
+      "types": "./eleventy.d.ts",
+      "require": "./eleventy.js",
+      "default": "./eleventy.js"
+    },
+    "./integrations/woocommerce": {
+      "types": "./integrations/woocommerce.d.ts",
+      "require": "./integrations/woocommerce.js",
+      "default": "./integrations/woocommerce.js"
+    },
+    "./integrations/yoast": {
+      "types": "./integrations/yoast.d.ts",
+      "require": "./integrations/yoast.js",
+      "default": "./integrations/yoast.js"
+    },
+    "./integrations/forms": {
+      "types": "./integrations/forms.d.ts",
+      "require": "./integrations/forms.js",
+      "default": "./integrations/forms.js"
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:php": "php -l wordpress-plugin/wp-awesome.php && php -l wordpress-plugin/wp-awesome-mu.php && php -l wordpress-plugin/lifecycle.php && php -l wordpress-plugin/uninstall.php && php wordpress-plugin/tests/mu-plugin.test.php",
+    "lint": "oxlint --deny-warnings .",
+    "build": "vite build",
+    "docs:build": "bun run build && node docs-site/build.cjs",
+    "docs:check": "bun run docs:build && node docs-site/check-links.cjs",
+    "docs:serve": "bun run build && node docs-site/build.cjs --serve",
+    "demo:build": "bun run docs:build",
+    "demo:serve": "bun run docs:serve",
+    "test:package": "bun scripts/check-package.mjs",
+    "plugin:build": "node scripts/build-plugin.mjs",
+    "pack:check": "bun pm pack --dry-run --ignore-scripts",
+    "verify": "bun run test && bun run lint && bun run test:php && bun run docs:check && bun run test:package && bun run plugin:build && bun run headers:check",
+    "check": "bun run verify",
+    "publish:check": "bun run verify && bun run pack:check",
+    "headers:update": "bun scripts/update-file-headers.mjs --staged --stage",
+    "headers:update:all": "bun scripts/update-file-headers.mjs --all",
+    "headers:check": "bun scripts/update-file-headers.mjs --all --check",
+    "git:hooks:install": "git config core.hooksPath .githooks",
+    "release": "node scripts/release.mjs",
+    "release:preview": "bun run release -- --initial --preview"
+  },
+  "dependencies": {
+    "@wordpress/block-serialization-default-parser": "^5.56.0",
+    "entities": "^6.0.1",
+    "sanitize-html": "2.18.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "@awesome.me/webawesome": "^3.14.0",
+    "@fortawesome/fontawesome-free": "^7.3.1",
+    "fflate": "^0.8.2",
+    "happy-dom": "^20.14.5",
+    "oxlint": "1.80.0",
+    "prismjs": "^1.30.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.6"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "bun@1.4.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "wordpress",
+    "eleventy",
+    "headless-wordpress",
+    "static-site-generator",
+    "gutenberg",
+    "rest-api"
+  ]
+}

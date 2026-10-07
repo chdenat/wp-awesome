@@ -39,7 +39,7 @@ beautiful-site/
 
 ## `package.json`
 
-Before a registry release, install the local package directory. In this manifest, the package version range shows the dependency you would use after a matching version is published.
+Use the published package version in the consumer manifest:
 
 ```json
 {
@@ -50,7 +50,7 @@ Before a registry release, install the local package directory. In this manifest
     "test": "node --test"
   },
   "dependencies": {
-    "wp-awesome": "^0.1.0"
+    "wp-awesome": "^0.1.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6"
@@ -58,7 +58,7 @@ Before a registry release, install the local package directory. In this manifest
 }
 ```
 
-For the current unpublished source, install the local checkout instead of that registry dependency:
+For unreleased changes, install the local checkout instead of that registry dependency:
 
 ```sh
 bun add /absolute/path/to/wp-awesome

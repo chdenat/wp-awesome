@@ -20,7 +20,7 @@ permalink: quick-guide/index.html
 
 This walkthrough assumes Bun and an Eleventy 3 frontend project. Replace the fictitious WordPress origin with your own before running the loader. For a generated frontend using Web Awesome and Font Awesome, start with the [setup assistant](/setup-assistant/).
 
-> **Package availability:** version `0.1.0` is in this standalone repository and has not been published to npm. Install a local checkout for now; do not expect `bun add wp-awesome` to work until a registry release exists.
+> **Package availability:** `wp-awesome@0.1.1` is published on npm. Use `bun add wp-awesome@0.1.1` for a registry install; use a local checkout when testing unpublished changes.
 
 For the manual steps below, start in the root of a separate consumer project folder, for example `beautiful-site/`. The paths in this guide are relative to that folder. Create the `site/` and `src/_includes/layouts/` directories there before saving the files. Do not put these files in the `wp-awesome` package checkout or in WordPress `wp-content/plugins/`.
 
@@ -46,7 +46,7 @@ bun add /path/to/wp-awesome
 bun add --dev @11ty/eleventy@^3.1.6
 ```
 
-After publication, install `wp-awesome@0.1.0` from npm or `github:chdenat/wp-awesome#v0.1.0` from GitHub. Both keep the same import name. See [package installation and releases](/package-releases/) for npm and Bun commands.
+Install `wp-awesome@0.1.1` from npm or `github:chdenat/wp-awesome#v0.1.1` from GitHub. Both keep the same import name. See [package installation and releases](/package-releases/) for npm and Bun commands.
 
 ## 2. Add a server-side data loader
 

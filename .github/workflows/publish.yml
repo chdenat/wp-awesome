@@ -84,6 +84,19 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish ./artifacts/wp-awesome-*.tgz --access public --ignore-scripts
+      - name: Confirm the version is available from npm
+        run: |
+          version=$(bun -p 'require("./package.json").version')
+          for attempt in {1..30}; do
+            if npm view "wp-awesome@$version" version --json > "$RUNNER_TEMP/npm-published-version.json" 2> "$RUNNER_TEMP/npm-published-version-error.txt"; then
+              cat "$RUNNER_TEMP/npm-published-version.json"
+              exit 0
+            fi
+            sleep 10
+          done
+          cat "$RUNNER_TEMP/npm-published-version-error.txt" >&2
+          echo "wp-awesome@$version was accepted by npm but did not become readable within five minutes." >&2
+          exit 1
       - name: Create or update the GitHub release assets
         env:
           GH_TOKEN: ${{ github.token }}

@@ -19,7 +19,7 @@ permalink: package-releases/index.html
 -->
 
 
-The package name is `wp-awesome`, without a scope. The repository metadata follows the existing Timeline convention at `chdenat/wp-awesome`. Version `0.1.0` is published on npm. Creating local files does not publish a later version or deploy the documentation site.
+The package name is `wp-awesome`, without a scope. The repository metadata follows the existing Timeline convention at `chdenat/wp-awesome`. Version `0.1.1` is current and published on npm. Creating local files does not publish a later version or deploy the documentation site.
 
 ## Install locally now
 
@@ -40,17 +40,17 @@ bun run verify
 bun pm pack --ignore-scripts --destination artifacts
 
 # In the consumer:
-npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.1.0.tgz
+npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.1.1.tgz
 ```
 
-A consumer may keep that tarball under its own `vendor/` directory and declare `"wp-awesome": "file:vendor/wp-awesome-0.1.0.tgz"`. Include the archive and consumer lockfile together so a clean runner can install before the remote package exists. Repack and reinstall after package changes. Do not hand-edit the archive.
+A consumer may keep that tarball under its own `vendor/` directory and declare `"wp-awesome": "file:vendor/wp-awesome-0.1.1.tgz"`. Include the archive and consumer lockfile together to install from that local artifact in CI. Repack and reinstall after package changes. Do not hand-edit the archive.
 
-## Install from npm after publication
+## Install from npm
 
 ```sh
-npm install wp-awesome@0.1.0
+npm install wp-awesome@0.1.1
 # Or:
-bun add wp-awesome@0.1.0
+bun add wp-awesome@0.1.1
 ```
 
 Install runtime dependencies with the package manager used by the consuming frontend. Bun also runs the generated Eleventy frontend and this repository's verification scripts. The optional WordPress build controls are a separate PHP plugin that installs a managed MU-plugin.
@@ -58,9 +58,9 @@ Install runtime dependencies with the package manager used by the consuming fron
 ## Install from GitHub after the repository and tag exist
 
 ```sh
-npm install github:chdenat/wp-awesome#v0.1.0
+npm install github:chdenat/wp-awesome#v0.1.1
 # Or:
-bun add github:chdenat/wp-awesome#v0.1.0
+bun add github:chdenat/wp-awesome#v0.1.1
 ```
 
 The dependency key and imports remain `wp-awesome`. Use a version tag or full commit hash. The source CommonJS files and declarations are publishable directly, so no `prepare`, `prepack`, or install lifecycle script is needed. This is a Git repository dependency, rather than GitHub Packages; it does not require an npm organization scope or a separate registry.
@@ -105,6 +105,6 @@ bun run release -- --initial
 
 That command requires a clean `main` branch and the intended origin, verifies the package, synchronizes the manifest/PHP plugin version, updates the changelog and lockfile, commits only version files, creates an annotated tag, and pushes `main` plus tags. Later releases use `--patch`, `--minor`, or `--major`.
 
-The tag workflow verifies everything again, creates the exact tarball, skips an existing npm version, and publishes that archive. It supplies the `.tgz` and `.zip` files when it creates the GitHub release, so both assets are uploaded before the release is published. Repositories with immutable releases do not allow assets to be added afterward. A manual retry from **Actions → Publish WP Awesome package and plugin → Run workflow** on `main` can finish a draft release; it cannot repair a published immutable release that is missing assets. Version 0.1.0's plugin archive is therefore available from its [dedicated plugin release](https://github.com/chdenat/wp-awesome/releases/tag/wp-awesome-plugin-v0.1.0). Future version releases include the ZIP on their matching release page. The PHP ZIP contains the installer, its managed MU-plugin, lifecycle and uninstall files, the English/French language catalogs, and its license, ready for WordPress's upload screen.
+The tag workflow verifies everything again, creates the exact tarball, skips an existing npm version, publishes that archive, and waits for the version to become readable from npm. It supplies the `.tgz` and `.zip` files when it creates the GitHub release, so both assets are uploaded before the release is published. Repositories with immutable releases do not allow assets to be added afterward. A manual retry from **Actions → Publish WP Awesome package and plugin → Run workflow** on `main` can finish a draft release; it cannot repair a published immutable release that is missing assets. The initial version 0.1.0's plugin archive remains available from its [dedicated plugin release](https://github.com/chdenat/wp-awesome/releases/tag/wp-awesome-plugin-v0.1.0). Version 0.1.1 and later releases include the ZIP on their matching release page. The PHP ZIP contains the installer, its managed MU-plugin, lifecycle and uninstall files, the English/French language catalogs, and its license, ready for WordPress's upload screen.
 
 The npm release workflow publishes the package and plugin archive. The Pages workflow deploys the documentation site. A consuming site's content publication remains a separate process; follow [publishing and hosting](/publishing-and-hosting/) for WordPress events, GitHub environments, Apache/Nginx, and atomic site promotion.

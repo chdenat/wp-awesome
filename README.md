@@ -23,7 +23,7 @@ Current source version: `0.1.1`.
 
 [Setup assistant](docs-site/src/setup-assistant.njk) · [Local, staging, and production](docs-site/src/publishing-and-hosting.md) · [Frontend guide](docs-site/src/quick-guide.md) · [Install the WordPress plugin](docs-site/src/wp-awesome.md) · [Package installation](docs-site/src/install-and-configure.md) · [Repository](https://github.com/chdenat/wp-awesome) · [npm package](https://www.npmjs.com/package/wp-awesome) · [MIT license](LICENSE.md)
 
-The GitHub repository and Pages site are expected at `chdenat/wp-awesome`. Version `0.1.0` is published as `wp-awesome@0.1.0` on npm. Preparing local files does not publish a later package version or deploy documentation.
+The GitHub repository and Pages site are expected at `chdenat/wp-awesome`. Version `0.1.1` is current and published on npm. Preparing local files does not publish a later package version or deploy documentation.
 
 ## Optional integrations
 
@@ -42,17 +42,17 @@ Use npm or Bun to install the package. The [package guide](docs-site/src/install
 Install the published version:
 
 ```sh
-npm install wp-awesome@0.1.0
+npm install wp-awesome@0.1.1
 # Or:
-bun add wp-awesome@0.1.0
+bun add wp-awesome@0.1.1
 ```
 
 After the GitHub repository and version tag exist:
 
 ```sh
-npm install github:chdenat/wp-awesome#v0.1.0
+npm install github:chdenat/wp-awesome#v0.1.1
 # Or:
-bun add github:chdenat/wp-awesome#v0.1.0
+bun add github:chdenat/wp-awesome#v0.1.1
 ```
 
 Use a version tag or commit rather than `main` for a reproducible consumer. GitHub dependencies keep the same `require('wp-awesome')` import. The CommonJS runtime and declarations are source files, so installation does not need a build lifecycle script.
@@ -64,7 +64,7 @@ npm install /absolute/path/to/wp-awesome
 # Or, from this repository:
 bun pm pack --ignore-scripts --destination artifacts
 # Then, from the consuming project:
-npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.1.0.tgz
+npm install /absolute/path/to/wp-awesome/artifacts/wp-awesome-0.1.1.tgz
 ```
 
 ## Minimal usage
@@ -126,7 +126,7 @@ The Eleventy documentation and offline demo use **http://localhost:4177**, witho
 | `bun run docs:serve` | Stop the previous package preview, rebuild, and serve on fixed port 4177 |
 | `bun run demo:build` / `demo:serve` | Documentation aliases including the real offline-normalization demo |
 | `bun run test:package` | Install a real tarball in a temporary consumer; check exports, ESM, types, and bundling |
-| `bun run plugin:build` | Create `artifacts/wp-awesome-0.1.0.zip` for WordPress upload |
+| `bun run plugin:build` | Create `artifacts/wp-awesome-0.1.1.zip` for WordPress upload |
 | `bun run pack:check` | Inspect publishable files without generating or publishing a tarball |
 | `bun run verify` / `check` | Tests, lint, PHP, docs, clean consumer, plugin ZIP, and headers |
 | `bun run publish:check` | Complete verification and package preview; no publication |

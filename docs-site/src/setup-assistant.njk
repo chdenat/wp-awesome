@@ -95,12 +95,12 @@ permalink: setup-assistant/index.html
           </ul>
         </div>
         <div class="assistant-field assistant-field-wide">
-          <wa-select id="installation-source" name="installation" label="Where should the frontend install WP Awesome from?" value="local">
-            <wa-option value="local">Local checkout — available now</wa-option>
-            <wa-option value="npm">npm release — after publication</wa-option>
-            <wa-option value="github">GitHub tag — after publication</wa-option>
+          <wa-select id="installation-source" name="installation" label="Where should the frontend install WP Awesome from?" value="npm">
+            <wa-option value="local">Local checkout — for unreleased changes</wa-option>
+            <wa-option value="npm">npm package — version {{ site.version }}</wa-option>
+            <wa-option value="github">GitHub tag — v{{ site.version }}</wa-option>
           </wa-select>
-          <small>Version {{ site.version }} is currently local and unpublished. The generated project uses the source you choose.</small>
+          <small>Version {{ site.version }} is published on npm and available as a GitHub tag. Use a local checkout for unreleased changes.</small>
         </div>
         <div class="assistant-field assistant-field-wide" data-local-installation>
           <wa-input id="local-package-path" name="localPackagePath" label="Absolute path to the WP Awesome checkout" placeholder="/absolute/path/to/wp-awesome" required></wa-input>
@@ -117,7 +117,7 @@ permalink: setup-assistant/index.html
       <p>The ZIP keeps every folder and file path. Extract it into the new project folder shown above. If you download files one at a time, save each file at the exact path displayed in its heading.</p>
       <p class="note"><strong>Where the files go:</strong> Put <code>package.json</code> and <code>.eleventy.cjs</code> at the root of your new frontend project. Put the WordPress loader in <code>site/</code> and pages, layouts, styles, and scripts in <code>src/</code>. These files belong in the frontend project, not in the WordPress plugin folder.</p>
       <p class="note" data-credentials-note hidden>Before a saved-block build, fill the empty <code>WORDPRESS_API_USERNAME</code> and <code>WORDPRESS_API_APPLICATION_PASSWORD</code> values in each local environment file, or supply them through CI secrets.</p>
-      <p class="note" data-release-note hidden>The selected npm release or GitHub tag must be published before dependency installation can succeed. Choose a local checkout to use the current version.</p>
+      <p class="note" data-release-note hidden>Version {{ site.version }} is published on npm and available as a GitHub tag. Choose a local checkout to test unreleased changes.</p>
       <h2>Local → staging → production</h2>
       <ol class="deployment-steps">
         <li><strong>Local:</strong> copy <code>.env.staging.example</code> to <code>.env</code>, install the dependencies, then run the local preview. This previews the staging WordPress content and staging frontend URL.</li>

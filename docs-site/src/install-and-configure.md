@@ -42,7 +42,7 @@ The PHP check requires a local PHP CLI. Neither unit-test suite calls WordPress 
 
 ## Install the package
 
-Version `0.1.0` is currently local and unpublished. Install the checkout from your consumer:
+Version `0.1.1` is published on npm. To test unpublished changes, install the checkout from your consumer:
 
 ```sh
 npm install /absolute/path/to/wp-awesome
@@ -51,16 +51,16 @@ bun add /absolute/path/to/wp-awesome
 bun add --dev @11ty/eleventy@^3.1.6
 ```
 
-After the first release, use npm:
+Install the published version from npm:
 
 ```sh
-npm install wp-awesome@0.1.0
+npm install wp-awesome@0.1.1
 ```
 
 Or install a published GitHub tag:
 
 ```sh
-npm install github:chdenat/wp-awesome#v0.1.0
+npm install github:chdenat/wp-awesome#v0.1.1
 ```
 
 All installation methods use `require('wp-awesome')`. See [package installation and releases](/package-releases/) for Bun equivalents, tarballs, CI, GitHub Pages, token configuration, and release preparation.

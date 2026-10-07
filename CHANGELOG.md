@@ -13,6 +13,10 @@
 
 # Changelog
 
+## 0.2.0 — 2026-10-07
+
+- See the annotated release tag and commit history.
+
 ## 0.1.1 — 2026-10-07
 
 - See the annotated release tag and commit history.
